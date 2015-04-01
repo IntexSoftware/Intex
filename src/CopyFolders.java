@@ -15,7 +15,7 @@ import java.io.OutputStream;
 public class CopyFolders
 {
 	
-	String source = "/opt/openfoam211/ddtfoam/initCase";
+	String source = "/opt/ddtfoam/case";
 	//String source = "C:\\Users\\Dell\\Desktop\\Projects\\INTEX\\temp1";
 	//String dest = "C:\\Users\\Dell\\Desktop\\Projects\\INTEX\\temp2";
 	
@@ -30,7 +30,7 @@ public class CopyFolders
  
     		WarningsIntex warIntex = new WarningsIntex();
 			warIntex.start();
-			warIntex.setInputToConsole("Brak folderu /opt/openfoam211/ddtfoam/initCase");
+			warIntex.setInputToConsole("Brak folderu /opt/ddtfoam/initCase");
     		
 			//System.out.println("Directory does not exist.");
  

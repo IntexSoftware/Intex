@@ -5,15 +5,19 @@ import java.io.UnsupportedEncodingException;
 
 
 public class ChemPropOF {
+	
+	private String nameOF;
+	
+	public void setName(String name){this.nameOF = name;}
 
 	public ChemPropOF() throws IOException, UnsupportedEncodingException 
 	{
 		
 		// create setters
 		
-		PrintWriter writer = new PrintWriter("C:\\Users\\Dell\\Desktop\\Projects\\INTEX\\chemistryProperties", "UTF-8");
+		PrintWriter writer = new PrintWriter("/home/mz/chemistryProperties", "UTF-8");
 		
-		writer.println("FoamFile																		");
+		writer.println(""+ nameOF +"																		");
 		writer.println("{																				");
 		writer.println("	version     2.0;															");
 		writer.println("	format      binary;															");

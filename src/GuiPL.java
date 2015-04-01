@@ -1,4 +1,5 @@
 import java.awt.EventQueue;
+
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -6,15 +7,20 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+
 import javax.swing.JFileChooser;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 import javax.swing.JCheckBox;
+
 import java.awt.Font;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+
 import javax.swing.DefaultComboBoxModel;
 
 
@@ -39,6 +45,10 @@ public class GuiPL
 	private JTextField textField_14;
 	private JTextField txte;
 	private JTextField txte_1;
+	
+	//private GeomAndMesh geomandmesh;
+	ChemPropOF nameFile;
+	
 	
 	JButton btnNewButtonOpenPL;
 	
@@ -100,7 +110,7 @@ public class GuiPL
 	private void initialize() {
 		frame = new JFrame("Intex");
 		frame.setTitle("");
-		frame.setBounds(10, 10, 1350, 650); // minimum size
+		frame.setBounds(10, 10, 950, 650); // minimum size
 		frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		frame.setResizable(true);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -532,7 +542,7 @@ public class GuiPL
 					e1.printStackTrace();
 					WarningsIntex warIntex = new WarningsIntex();
 					warIntex.start();
-					warIntex.setInputToConsole("Nie mo¿na otworzyæ programu. SprawdŸ czy program jest zainstalowany. SprawdŸ czy znajdujesz siê we w³aœciwym folderze");
+					warIntex.setInputToConsole("Nie moï¿½na otworzyï¿½ programu. Sprawdï¿½ czy program jest zainstalowany. Sprawdï¿½ czy znajdujesz siï¿½ we wï¿½aï¿½ciwym folderze");
 				}
 				
 	        }
@@ -548,21 +558,30 @@ public class GuiPL
 					directory = fc.getSelectedFile().getPath();
 					txthomeopenfoam_1.setText(directory);
 					createOFfolders = 1;
+										
 					
 					// Copy initial folders ddtFoma to the new one
 					
 					CopyFolders copyddtOFfolders = new CopyFolders(directory);
 					
+					/*
+					GeomAndMesh gm = new GeomAndMesh();
+					gm.setDirectory(directory);
+					gm.setXDirection("2");
+					gm.setYDirection("2");
+					gm.setZDirection("2");
+					
 					try {
-						ChemPropOF chemprop = new ChemPropOF();
+						gm.createPyForSalome();
+					} catch (FileNotFoundException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
 					} catch (UnsupportedEncodingException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
-					} catch (IOException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
 					}
-									    
+					*/
+					
 				} 
 				
 			}
