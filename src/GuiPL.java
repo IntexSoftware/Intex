@@ -22,6 +22,7 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JRadioButton;
 
 
 
@@ -51,6 +52,7 @@ public class GuiPL
 	
 	
 	JButton btnNewButtonOpenPL;
+	JButton btnNewButton_1;
 	
 	private String directory;
 	private String caseName;
@@ -178,7 +180,7 @@ public class GuiPL
 		tabbedPane_3.add(lblNewLabel_6);
 		
 		JLabel lblNewLabel_7 = new JLabel("Wybierz przekr\u00F3j kana\u0142u");
-		lblNewLabel_7.setBounds(10, 132, 163, 14);
+		lblNewLabel_7.setBounds(10, 132, 282, 14);
 		tabbedPane_3.add(lblNewLabel_7);
 		
 		JComboBox comboBox_1 = new JComboBox();
@@ -228,42 +230,46 @@ public class GuiPL
 		
 		JLabel lblGeometriaPrzeszkd = new JLabel("Geometria przeszk\u00F3d");
 		lblGeometriaPrzeszkd.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblGeometriaPrzeszkd.setBounds(10, 332, 200, 14);
+		lblGeometriaPrzeszkd.setBounds(10, 346, 200, 14);
 		tabbedPane_3.add(lblGeometriaPrzeszkd);
 		
 		JLabel lblWysoko = new JLabel("Wysoko\u015B\u0107");
-		lblWysoko.setBounds(10, 357, 147, 14);
+		lblWysoko.setBounds(10, 372, 147, 14);
 		tabbedPane_3.add(lblWysoko);
 		
 		JLabel lblGrubo = new JLabel("Grubo\u015B\u0107");
-		lblGrubo.setBounds(167, 357, 125, 14);
+		lblGrubo.setBounds(167, 372, 125, 14);
 		tabbedPane_3.add(lblGrubo);
 		
 		textField_10 = new JTextField();
 		textField_10.setText("0.2");
-		textField_10.setBounds(10, 382, 147, 28);
+		textField_10.setBounds(10, 398, 147, 28);
 		tabbedPane_3.add(textField_10);
 		textField_10.setColumns(10);
 		
 		textField_11 = new JTextField();
 		textField_11.setText("0.01");
-		textField_11.setBounds(167, 382, 125, 28);
+		textField_11.setBounds(167, 398, 125, 28);
 		tabbedPane_3.add(textField_11);
 		textField_11.setColumns(10);
 		
 		JLabel lblOdlegoMidzyPrzeszkodami = new JLabel("Odleg\u0142o\u015B\u0107");
-		lblOdlegoMidzyPrzeszkodami.setBounds(302, 357, 125, 14);
+		lblOdlegoMidzyPrzeszkodami.setBounds(302, 372, 125, 14);
 		tabbedPane_3.add(lblOdlegoMidzyPrzeszkodami);
 		
 		textField_12 = new JTextField();
 		textField_12.setText("0.8");
-		textField_12.setBounds(302, 383, 125, 28);
+		textField_12.setBounds(302, 398, 125, 28);
 		tabbedPane_3.add(textField_12);
 		textField_12.setColumns(10);
 		
-		JButton btnGenerujGeometri = new JButton("Generuj Geometri\u0119");
-		btnGenerujGeometri.setBounds(10, 423, 147, 28);
-		tabbedPane_3.add(btnGenerujGeometri);
+		JRadioButton rdbtnTak = new JRadioButton("TAK");
+		rdbtnTak.setBounds(224, 342, 137, 23);
+		tabbedPane_3.add(rdbtnTak);
+		
+		JLabel lblNewLabel = new JLabel("Następny krok SIATKA");
+		lblNewLabel.setBounds(12, 459, 280, 15);
+		tabbedPane_3.add(lblNewLabel);
 		
 		/**
 		 * Menu Mesh
@@ -284,6 +290,7 @@ public class GuiPL
 		tabbedPane_4.add(lblRozmiarKomrkiNumerycznej);
 		
 		textField_13 = new JTextField();
+		textField_13.setToolTipText("Wilkość siatki powinna byc podzielna przez wymiary geometrii");
 		textField_13.setText("0.001");
 		textField_13.setBounds(10, 61, 172, 28);
 		tabbedPane_4.add(textField_13);
@@ -298,9 +305,12 @@ public class GuiPL
 		comboBox_6.setBounds(10, 144, 172, 28);
 		tabbedPane_4.add(comboBox_6);
 		
-		JButton btnNewButton_1 = new JButton("Generuj Siatk\u0119");
+		btnNewButton_1 = new JButton("Generuj Siatk\u0119");
 		btnNewButton_1.setBounds(10, 196, 172, 28);
 		tabbedPane_4.add(btnNewButton_1);
+		
+		ListenForButton lForButtonNewButton_1 = new ListenForButton();
+		btnNewButton_1.addActionListener(lForButtonNewButton_1);
 		
 		JButton btnNewButton_2 = new JButton("Wy\u015Bwietl siatk\u0119");
 		btnNewButton_2.setBounds(10, 235, 172, 28);
@@ -560,31 +570,44 @@ public class GuiPL
 					createOFfolders = 1;
 										
 					
-					// Copy initial folders ddtFoma to the new one
-					
+					// Copy initial folders ddtFoma to the new one					
 					CopyFolders copyddtOFfolders = new CopyFolders(directory);
-					
-					/*
-					GeomAndMesh gm = new GeomAndMesh();
-					gm.setDirectory(directory);
-					gm.setXDirection("2");
-					gm.setYDirection("2");
-					gm.setZDirection("2");
-					
-					try {
-						gm.createPyForSalome();
-					} catch (FileNotFoundException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					} catch (UnsupportedEncodingException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-					*/
-					
+										
 				} 
 				
 			}
+			
+			if(e.getSource() == btnNewButton_1)
+			{
+				GeomAndMesh gm = new GeomAndMesh();
+				gm.setDirectory(directory);
+				gm.setXDirection("2");
+				gm.setYDirection("0.1");
+				gm.setZDirection("0.1");
+				gm.setMeshSize("0.01");
+				
+				try {
+					gm.createPyForSalome();
+				} catch (FileNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (UnsupportedEncodingException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+				System.out.println("Execute the command line command and build geom + mesh");
+				
+				ExecuteShellComand exeShellCom = new ExecuteShellComand();
+				exeShellCom.setTerminalCommand("/opt/SALOME-MECA-2013.1/appli_V6_6_0/runSalomeMeca -t "+directory+"/GeomAndMesh.py");
+				exeShellCom.exeShellComand();	
+				
+				// wyświtlić informację, że siatka jest generoawana
+				
+				// przekształcic unvToopenFoam
+
+			}
+			
 			
 		}
 	     

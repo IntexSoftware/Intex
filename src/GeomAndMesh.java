@@ -12,6 +12,8 @@ public class GeomAndMesh
 	private String xD;
 	private String yD;
 	private String zD;
+	private String mSize;
+	private String meshType;
 	
 	public GeomAndMesh(){}
 	
@@ -21,11 +23,13 @@ public class GeomAndMesh
 	public void setXDirection(String x){this.xD = x;}
 	public void setYDirection(String y){this.yD = y;}
 	public void setZDirection(String z){this.zD = z;}
-
+	public void setMeshSize(String cvSize){this.mSize = cvSize;}
+	public void setMeshType(String mType){this.meshType = mType;}
+	
 	
 	public void createPyForSalome() throws FileNotFoundException, UnsupportedEncodingException
 	{
-		PrintWriter writer = new PrintWriter("/home/mz/GeomAndMesh.py", "UTF-8");
+		PrintWriter writer = new PrintWriter(""+directoryPy+"/GeomAndMesh.py", "UTF-8");
 		
 		writer.println("# -*- coding: iso-8859-1 -*-                      ");
 
@@ -83,7 +87,6 @@ public class GeomAndMesh
 		writer.println("geompy.addToStudyInFather( Box_1, start, 'start' )");
 		writer.println("geompy.addToStudyInFather( Box_1, end, 'end' )");
 
-
 		writer.println("###");
 		writer.println("### SMESH component");
 		writer.println("###");
@@ -94,18 +97,18 @@ public class GeomAndMesh
 		writer.println("import StdMeshers");
 		writer.println("Mesh_1 = smesh.Mesh(Box_1)");
 		writer.println("Regular_1D = Mesh_1.Segment()");
-		writer.println("Max_Size_1 = Regular_1D.MaxSize(0.01)");
+		writer.println("Max_Size_1 = Regular_1D.MaxSize("+mSize+")");
 		writer.println("Quadrangle_2D = Mesh_1.Quadrangle(algo=smesh.QUADRANGLE)");
 		writer.println("Hexa_3D = Mesh_1.Hexahedron(algo=smesh.Hexa)");
 		writer.println("isDone = Mesh_1.Compute()");
-		writer.println("Mesh_1.ExportUNV( r'/home/mz/Salome/Mesh_2.unv' )");
+		writer.println("Mesh_1.ExportUNV( r'"+directoryPy+"/Mesh_2.unv' )");
 		writer.println("right_1 = Mesh_1.GroupOnGeom(right,'right',SMESH.FACE)");
 		writer.println("left_1 = Mesh_1.GroupOnGeom(left,'left',SMESH.FACE)");
 		writer.println("top_1 = Mesh_1.GroupOnGeom(top,'top',SMESH.FACE)");
 		writer.println("bottom_1 = Mesh_1.GroupOnGeom(bottom,'bottom',SMESH.FACE)");
 		writer.println("start_1 = Mesh_1.GroupOnGeom(start,'start',SMESH.FACE)");
 		writer.println("end_1 = Mesh_1.GroupOnGeom(end,'end',SMESH.FACE)");
-		writer.println("Mesh_1.ExportUNV( r'/home/mz/Salome/Mesh_2.unv' )");
+		writer.println("Mesh_1.ExportUNV( r'"+directoryPy+"/Mesh_2.unv' )");
 
 		writer.println("## set object names");
 		writer.println("smesh.SetName(Mesh_1.GetMesh(), 'Mesh_1')");
@@ -121,7 +124,7 @@ public class GeomAndMesh
 		writer.println("smesh.SetName(end_1, 'end')");
 
 		writer.println("# Save the Study");
-		writer.println("salome.myStudyManager.SaveAs('study.hdf', salome.myStudy, False)");
+		writer.println("salome.myStudyManager.SaveAs('"+directoryPy+"/study.hdf', salome.myStudy, False)");
 
 		writer.println("# Close the Study");
 		writer.println("salome.myStudyManager.Close(salome.myStudy)");
