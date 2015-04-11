@@ -17,13 +17,19 @@ import javax.swing.JTextField;
 import javax.swing.JCheckBox;
 
 import java.awt.Font;
+import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.util.Map;
+import java.util.Set;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JRadioButton;
 
+import org.omg.CORBA.portable.InputStream;
 
 
 public class GuiPL 
@@ -53,6 +59,10 @@ public class GuiPL
 	
 	JButton btnNewButtonOpenPL;
 	JButton btnNewButton_1;
+	JButton btnNewButton_2;
+	JButton btnNewButton_3;
+	JButton ButtonMeshToOF;
+	JButton btnButtonStartSim;
 	
 	private String directory;
 	private String caseName;
@@ -64,7 +74,6 @@ public class GuiPL
 	 */
 	public void runGUIpl() 
 	{
-	
 		
 		try {
 	            // Set System L&F
@@ -84,7 +93,6 @@ public class GuiPL
 	       // handle exception
 	    }
 	    		
-		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -107,7 +115,6 @@ public class GuiPL
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	JButton btnNewButton_3;
 	
 	private void initialize() {
 		frame = new JFrame("Intex");
@@ -154,7 +161,6 @@ public class GuiPL
 		
 		ListenForButton lForButtonOtworzPL = new ListenForButton();
 		btnNewButtonOpenPL.addActionListener(lForButtonOtworzPL);
-		
 				
 		/**
 		 * Menu Geometry
@@ -188,43 +194,43 @@ public class GuiPL
 		comboBox_1.setBounds(10, 157, 147, 28);
 		tabbedPane_3.add(comboBox_1);
 		
-		JLabel lblNewLabel_8 = new JLabel("D\u0142ugo\u015B\u0107 Kana\u0142u [m]");
-		lblNewLabel_8.setBounds(10, 206, 147, 14);
+		JLabel lblNewLabel_8 = new JLabel("Długość Kanału L [m]");
+		lblNewLabel_8.setBounds(10, 206, 183, 13);
 		tabbedPane_3.add(lblNewLabel_8);
 		
 		textField_6 = new JTextField();
 		textField_6.setText("2");
-		textField_6.setBounds(10, 231, 147, 28);
+		textField_6.setBounds(46, 231, 91, 28);
 		tabbedPane_3.add(textField_6);
 		textField_6.setColumns(10);
 		
 		textField_7 = new JTextField();
-		textField_7.setText("0.4");
-		textField_7.setBounds(167, 231, 125, 28);
+		textField_7.setText("0.1");
+		textField_7.setBounds(249, 231, 91, 28);
 		tabbedPane_3.add(textField_7);
 		textField_7.setColumns(10);
 		
-		JLabel lblSzerokoKanau = new JLabel("Szeroko\u015B\u0107 kana\u0142u [m]");
-		lblSzerokoKanau.setBounds(167, 206, 125, 14);
+		JLabel lblSzerokoKanau = new JLabel("Szerokość kanału W [m]");
+		lblSzerokoKanau.setBounds(208, 205, 183, 14);
 		tabbedPane_3.add(lblSzerokoKanau);
 		
-		JLabel lblWysokoKanau = new JLabel("Wysoko\u015B\u0107 kana\u0142u [m]");
-		lblWysokoKanau.setBounds(302, 206, 125, 14);
+		JLabel lblWysokoKanau = new JLabel("Wysokość kanału H [m]");
+		lblWysokoKanau.setBounds(403, 206, 183, 13);
 		tabbedPane_3.add(lblWysokoKanau);
 		
 		textField_8 = new JTextField();
-		textField_8.setText("0.4");
-		textField_8.setBounds(302, 231, 125, 28);
+		textField_8.setText("0.1");
+		textField_8.setBounds(441, 231, 91, 28);
 		tabbedPane_3.add(textField_8);
 		textField_8.setColumns(10);
 		
-		JLabel lblrednicaKanau = new JLabel("\u015Arednica kana\u0142u");
-		lblrednicaKanau.setBounds(10, 269, 147, 14);
+		JLabel lblrednicaKanau = new JLabel("Średnica kanału d [m]");
+		lblrednicaKanau.setBounds(10, 269, 183, 14);
 		tabbedPane_3.add(lblrednicaKanau);
 		
 		textField_9 = new JTextField();
 		textField_9.setText("0.4");
-		textField_9.setBounds(10, 294, 147, 28);
+		textField_9.setBounds(46, 294, 89, 28);
 		tabbedPane_3.add(textField_9);
 		textField_9.setColumns(10);
 		
@@ -233,33 +239,33 @@ public class GuiPL
 		lblGeometriaPrzeszkd.setBounds(10, 346, 200, 14);
 		tabbedPane_3.add(lblGeometriaPrzeszkd);
 		
-		JLabel lblWysoko = new JLabel("Wysoko\u015B\u0107");
-		lblWysoko.setBounds(10, 372, 147, 14);
+		JLabel lblWysoko = new JLabel("Wysokość h [m]");
+		lblWysoko.setBounds(46, 372, 147, 14);
 		tabbedPane_3.add(lblWysoko);
 		
-		JLabel lblGrubo = new JLabel("Grubo\u015B\u0107");
-		lblGrubo.setBounds(167, 372, 125, 14);
+		JLabel lblGrubo = new JLabel("Grubość w [m]");
+		lblGrubo.setBounds(249, 372, 125, 14);
 		tabbedPane_3.add(lblGrubo);
 		
 		textField_10 = new JTextField();
 		textField_10.setText("0.2");
-		textField_10.setBounds(10, 398, 147, 28);
+		textField_10.setBounds(46, 398, 91, 28);
 		tabbedPane_3.add(textField_10);
 		textField_10.setColumns(10);
 		
 		textField_11 = new JTextField();
 		textField_11.setText("0.01");
-		textField_11.setBounds(167, 398, 125, 28);
+		textField_11.setBounds(249, 398, 91, 28);
 		tabbedPane_3.add(textField_11);
 		textField_11.setColumns(10);
 		
 		JLabel lblOdlegoMidzyPrzeszkodami = new JLabel("Odleg\u0142o\u015B\u0107");
-		lblOdlegoMidzyPrzeszkodami.setBounds(302, 372, 125, 14);
+		lblOdlegoMidzyPrzeszkodami.setBounds(441, 372, 125, 14);
 		tabbedPane_3.add(lblOdlegoMidzyPrzeszkodami);
 		
 		textField_12 = new JTextField();
 		textField_12.setText("0.8");
-		textField_12.setBounds(302, 398, 125, 28);
+		textField_12.setBounds(441, 398, 91, 28);
 		tabbedPane_3.add(textField_12);
 		textField_12.setColumns(10);
 		
@@ -291,7 +297,7 @@ public class GuiPL
 		
 		textField_13 = new JTextField();
 		textField_13.setToolTipText("Wilkość siatki powinna byc podzielna przez wymiary geometrii");
-		textField_13.setText("0.001");
+		textField_13.setText("0.01");
 		textField_13.setBounds(10, 61, 172, 28);
 		tabbedPane_4.add(textField_13);
 		textField_13.setColumns(10);
@@ -312,9 +318,19 @@ public class GuiPL
 		ListenForButton lForButtonNewButton_1 = new ListenForButton();
 		btnNewButton_1.addActionListener(lForButtonNewButton_1);
 		
-		JButton btnNewButton_2 = new JButton("Wy\u015Bwietl siatk\u0119");
-		btnNewButton_2.setBounds(10, 235, 172, 28);
+		btnNewButton_2 = new JButton("Wy\u015Bwietl siatk\u0119");
+		btnNewButton_2.setBounds(10, 298, 172, 28);
 		tabbedPane_4.add(btnNewButton_2);
+		
+		ListenForButton lForButtonMeshDisp = new ListenForButton();
+		btnNewButton_2.addActionListener(lForButtonMeshDisp);
+		
+		ButtonMeshToOF = new JButton("MeshToOpenFoam");
+		ButtonMeshToOF.setBounds(12, 248, 172, 28);
+		tabbedPane_4.add(ButtonMeshToOF);
+		
+		ListenForButton lForButtonMeshToOF = new ListenForButton();
+		ButtonMeshToOF.addActionListener(lForButtonMeshToOF);
 		
 		
 		/**
@@ -503,6 +519,13 @@ public class GuiPL
 		comboBox_11.setBounds(192, 214, 87, 28);
 		tabbedPane_7.add(comboBox_11);
 		
+		btnButtonStartSim = new JButton("Start");
+		btnButtonStartSim.setBounds(10, 283, 172, 28);
+		tabbedPane_7.add(btnButtonStartSim);
+		
+		ListenForButton buttonStartSim = new ListenForButton();
+		btnButtonStartSim.addActionListener(buttonStartSim);
+		
 		/**
 		 * Menu Post Processing
 		 * 
@@ -539,21 +562,16 @@ public class GuiPL
 	{
 		public void actionPerformed(ActionEvent e)
 		{
-			if(e.getSource() == btnNewButton_3)
+			if(e.getSource() == btnNewButton_3 || e.getSource() == btnNewButton_2)
 			{
-				try 
-				{
-					System.out.println("Opening paraFoam");
-					Runtime runTime = Runtime.getRuntime();
-					Process processPF = runTime.exec("paraFoam");
-					
-				} catch (IOException e1) 
-				{
-					e1.printStackTrace();
-					WarningsIntex warIntex = new WarningsIntex();
-					warIntex.start();
-					warIntex.setInputToConsole("Nie mo�na otworzy� programu. Sprawd� czy program jest zainstalowany. Sprawd� czy znajdujesz si� we w�a�ciwym folderze");
-				}
+				
+				System.out.println("Open ParaFoam");
+				
+				ExecuteShellComand executeSalomeSript = new ExecuteShellComand();
+				executeSalomeSript.setTerminalCommand("/home/mz/test/OpenParaFoam");
+				executeSalomeSript.runExeShellComan();	
+								
+				System.out.println("paraFoam finished procedure");
 				
 	        }
 			
@@ -568,10 +586,49 @@ public class GuiPL
 					directory = fc.getSelectedFile().getPath();
 					txthomeopenfoam_1.setText(directory);
 					createOFfolders = 1;
-										
-					
-					// Copy initial folders ddtFoma to the new one					
+								
+					// Copy initial files to new working directory
 					CopyFolders copyddtOFfolders = new CopyFolders(directory);
+					
+					// Create linux script to execute paraFoam 
+					OpenParaFoamScript createOpFscript = new OpenParaFoamScript();
+					createOpFscript.setDirectory(directory);
+					try {
+						createOpFscript.openParaFoam();
+					} catch (FileNotFoundException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					} catch (UnsupportedEncodingException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					
+					// Create linux script to execute ideasUnvToFoam: change salome format unv to OpenFoam
+					StlMeshToOf createIdeasUnvscript = new StlMeshToOf();
+					createIdeasUnvscript.setDirectory(directory);
+					try {
+						createIdeasUnvscript.openParaFoam();
+					} catch (FileNotFoundException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					} catch (UnsupportedEncodingException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					
+					// Create linux script to execute SetupGeomAndMeshOF: 
+					//to create geom and mesh in salome in the background with py script
+					SetupGeomAndMeshOFscript createGemAndMeshSalomeScript = new SetupGeomAndMeshOFscript();
+					createGemAndMeshSalomeScript.setDirectory(directory);
+					try {
+						createGemAndMeshSalomeScript.openParaFoam();
+					} catch (FileNotFoundException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					} catch (UnsupportedEncodingException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 										
 				} 
 				
@@ -598,14 +655,29 @@ public class GuiPL
 				
 				System.out.println("Execute the command line command and build geom + mesh");
 				
-				ExecuteShellComand exeShellCom = new ExecuteShellComand();
-				exeShellCom.setTerminalCommand("/opt/SALOME-MECA-2013.1/appli_V6_6_0/runSalomeMeca -t "+directory+"/GeomAndMesh.py");
-				exeShellCom.exeShellComand();	
+				ExecuteShellComand executeSalomeSript = new ExecuteShellComand();
+				executeSalomeSript.setTerminalCommand("/opt/SALOME-MECA-2013.1/appli_V6_6_0/runSalomeMeca -t /home/mz/test/GeomAndMesh.py");
+				executeSalomeSript.runExeShellComan();
+												
+				System.out.println("Done geom + mesh");
+			}
+			
+			if(e.getSource() == ButtonMeshToOF)
+			{
 				
-				// wyświtlić informację, że siatka jest generoawana
+				ExecuteShellComand executeSalomeSript = new ExecuteShellComand();
+				executeSalomeSript.setTerminalCommand("/home/mz/test/StlMeshToOF");
+				executeSalomeSript.runExeShellComan();	
 				
-				// przekształcic unvToopenFoam
-
+			}
+			
+			if(e.getSource() == btnButtonStartSim)
+			{
+				
+				ExecuteShellComand executeSalomeSript = new ExecuteShellComand();
+				executeSalomeSript.setTerminalCommand("/home/mz/test/ddtFoamStart");
+				executeSalomeSript.runExeShellComan();
+				
 			}
 			
 			

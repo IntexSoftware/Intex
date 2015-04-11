@@ -101,14 +101,14 @@ public class GeomAndMesh
 		writer.println("Quadrangle_2D = Mesh_1.Quadrangle(algo=smesh.QUADRANGLE)");
 		writer.println("Hexa_3D = Mesh_1.Hexahedron(algo=smesh.Hexa)");
 		writer.println("isDone = Mesh_1.Compute()");
-		writer.println("Mesh_1.ExportUNV( r'"+directoryPy+"/Mesh_2.unv' )");
+		writer.println("Mesh_1.ExportUNV( r'"+directoryPy+"/Mesh_1.unv' )");
 		writer.println("right_1 = Mesh_1.GroupOnGeom(right,'right',SMESH.FACE)");
 		writer.println("left_1 = Mesh_1.GroupOnGeom(left,'left',SMESH.FACE)");
 		writer.println("top_1 = Mesh_1.GroupOnGeom(top,'top',SMESH.FACE)");
 		writer.println("bottom_1 = Mesh_1.GroupOnGeom(bottom,'bottom',SMESH.FACE)");
 		writer.println("start_1 = Mesh_1.GroupOnGeom(start,'start',SMESH.FACE)");
 		writer.println("end_1 = Mesh_1.GroupOnGeom(end,'end',SMESH.FACE)");
-		writer.println("Mesh_1.ExportUNV( r'"+directoryPy+"/Mesh_2.unv' )");
+		writer.println("Mesh_1.ExportUNV( r'"+directoryPy+"/Mesh_1.unv' )");
 
 		writer.println("## set object names");
 		writer.println("smesh.SetName(Mesh_1.GetMesh(), 'Mesh_1')");
