@@ -1,0 +1,45 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+
+
+public class SetupGeomAndMeshOFscript 
+{
+	private String directory; 
+	
+	public SetupGeomAndMeshOFscript(){};
+	public void setDirectory(String nameD){this.directory = nameD;}
+		
+	public void openParaFoam() throws FileNotFoundException, UnsupportedEncodingException
+	{
+		
+		final File scriptFile = new File(""+directory+"/SetupGeomAndMeshOF");
+		PrintWriter w = new PrintWriter(scriptFile);
+		w.println("#!/bin/bash");
+		w.println("clear");
+		w.println("echo \"\"");
+	    w.println("echo \"Open Salome - create Geom and Mesh\"");
+		w.println("/opt/SALOME-MECA-2013.1/appli_V6_6_0/runSalomeMeca -t "+directory+"/GeomAndMesh.py");
+		w.println("if [ \"$?\" = \"0\" ]; then");
+		w.println("echo \"\"");
+	    w.println("echo \"Work done\"");
+		w.println("else");
+		w.println("echo \"\"");
+		w.println("echo \"Cannot be done\"");
+		w.println("fi");
+		w.println("echo \"\"");
+		w.println("echo \"exit script Geom in Salome\"");
+		
+		w.close();
+
+		// make the script executable
+		ExecuteShellComand executeSalomeSript = new ExecuteShellComand();
+		executeSalomeSript.setTerminalCommand( "chmod +x " + scriptFile.getAbsolutePath());
+		executeSalomeSript.runExeShellComan();	
+		
+	}
+
+
+}
