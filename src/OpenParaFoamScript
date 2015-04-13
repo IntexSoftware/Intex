@@ -1,0 +1,48 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+
+
+
+public class OpenParaFoamScript 
+{
+	private String directory;
+	
+	public OpenParaFoamScript(){};
+	public void setDirectory(String nameD){this.directory = nameD;}
+		
+	public void openParaFoam() throws FileNotFoundException, UnsupportedEncodingException
+	{
+		
+		final File scriptFile = new File(""+directory+"/OpenParaFoam");
+		PrintWriter w = new PrintWriter(scriptFile);
+		w.println("#!/bin/bash");
+		w.println("clear");
+		w.println("echo \"\"");
+	    w.println("echo \"Openning paraFoam from script\"");
+		w.println("source /opt/openfoam211/etc/bashrc");
+		w.println("/opt/openfoam211/bin/paraFoam -case /home/mz/test");
+		w.println("if [ \"$?\" = \"0\" ]; then");
+		w.println("echo \"\"");
+	    w.println("echo \"Work done\"");
+		w.println("else");
+		w.println("echo \"\"");
+		w.println("echo \"Cannot be done\"");
+		w.println("fi");
+		w.println("echo \"\"");
+		w.println("echo \"exit script\"");
+		
+		w.close();
+
+		// make the script executable
+		ExecuteShellComand executeSalomeSript = new ExecuteShellComand();
+		executeSalomeSript.setTerminalCommand( "chmod +x " + scriptFile.getAbsolutePath());
+		executeSalomeSript.runExeShellComan();	
+		
+		
+	}
+
+
+}
